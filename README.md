@@ -1,4 +1,4 @@
-# Sistem Pendukung Keputusan Penerima Bantuan Sosial Metode SAW
+# Sistem Pendukung Keputusan Metode SAW
 
 Ini merupakan aplikasi web sederhana untuk menentukan karyawan terbaik. 
 
