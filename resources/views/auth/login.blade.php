@@ -42,7 +42,7 @@
                         <!-- Nested Row within Card Body -->
                         {{-- <div class="row">
                             <div class="col-lg-6 d-none d-lg-block text-center" id="title">
-                                <h3>Sistem Pendukung Keputusan Penerima Bantuan Sosial Metode SAW</h3>
+                                <h3>Sistem Pendukung Keputusan Metode SAW</h3>
                             </div>
                             <div class="col-lg-6"> --}}
                                 <div class="p-5">
