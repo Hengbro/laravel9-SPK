@@ -35,7 +35,7 @@
     <div>
         <table>
             <tr>
-                <td style="padding-right: 240px; padding-left: 20px"><img src="https://4.bp.blogspot.com/-TBASjipimVM/WM-xhIQc5yI/AAAAAAAAD5o/NeSO8wMRISQMLeTCfKBFmewY4vQt1y-NQCEw/s1600/Logo%2BJakarta%2BHitam.png" width="90" height="90" ></td>
+                <td style="padding-right: 240px; padding-left: 20px"><img src="{{ asset('build/assets/images/logoptbos.jpeg') }}" width="90" height="90" ></td>
                 <td>
                     <center>
                         <font size="4">PMKS PT BOSS</font><br>

@@ -35,12 +35,12 @@
     <div>
         <table>
             <tr>
-                <td style="padding-right: 240px; padding-left: 20px"><img src="https://4.bp.blogspot.com/-TBASjipimVM/WM-xhIQc5yI/AAAAAAAAD5o/NeSO8wMRISQMLeTCfKBFmewY4vQt1y-NQCEw/s1600/Logo%2BJakarta%2BHitam.png" width="90" height="90" ></td>
+                <td style="padding-right: 240px; padding-left: 20px"><img src="{{ asset('build/assets/images/logo.png') }}" width="90" height="90" ></td>
                 <td>
                     <center>
                         <font size="4">PMKS PT BOSS</font><br>
                         <font size="4">telp: 0895678945</font><br>
-                        <font size="2">Alamat PT. BOSS</font><br>
+                        <font size="2">. BOSS</font><br>
                         <font size="2">Kode Pos: 22865</font><br>
                     </center>
                 </td>
@@ -88,10 +88,9 @@
     <div id="ttd" class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <p id="camat">Jakarta, {{ $tanggal }}</p>
-          <p id="camat"><strong>KETUA RT 004 / RW 001</strong></p>
-          <div id="nama-camat"><strong><u>AGUSTINA</u></strong><br />
-        NIP. 3175044408730004</div>
+          <p id="camat">Medan, {{ $tanggal }}</p>
+          <p id="camat"><strong>KETUA KELOMPOK</strong></p>
+          <div id="nama-camat"><strong><u>DEVI PURBA</u></strong><br />NPM. 200840045</div>
       </div>
         </div>
 </div>

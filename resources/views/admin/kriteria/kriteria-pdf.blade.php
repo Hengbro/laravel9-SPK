@@ -35,7 +35,7 @@
     <div>
         <table>
             <tr>
-                <td style="padding-right: 240px; padding-left: 20px"><img src="https://4.bp.blogspot.com/-TBASjipimVM/WM-xhIQc5yI/AAAAAAAAD5o/NeSO8wMRISQMLeTCfKBFmewY4vQt1y-NQCEw/s1600/Logo%2BJakarta%2BHitam.png" width="90" height="90" ></td>
+                <td style="padding-right: 240px; padding-left: 20px"><img src="{{ asset('build/assets/images/logoptbos.jpeg') }}" width="90" height="90" ></td>
                 <td>
                     <center>
                         <font size="4">PMKS PT BOSS</font><br>
@@ -84,10 +84,9 @@
     <div id="ttd" class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-          <p id="camat">Jakarta, {{ $tanggal }}</p>
-          <p id="camat"><strong>KETUA RT 004 / RW 001</strong></p>
-          <div id="nama-camat"><strong><u>AGUSTINA</u></strong><br />
-        NIP. 3175044408730004</div>
+          <p id="camat">Medan, {{ $tanggal }}</p>
+          <p id="camat"><strong>KETUA KELOMPOK</strong></p>
+          <div id="nama-camat"><strong><u>DEVI PURBA</u></strong><br />NPM. 200840045</div>
       </div>
         </div>
 </div>

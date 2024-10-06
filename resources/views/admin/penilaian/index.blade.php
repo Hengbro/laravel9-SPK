@@ -46,14 +46,15 @@
                         <tbody>
                             @forelse ($alternatif as $alt => $valt)
                             <tr>
-                                <td>{{ $valt->nama_alternatif }}</td>
+                            <td>{{ $valt->nama_alternatif }}</td>
                                 @foreach($kriteria as $key => $value)
                                     <td>
                                         <input type="hidden" name="crips_id[{{$valt->id}}][{{$key}}][kriteria_id]" value="{{ $value->id }}">
                                         <input type="text" name="crips_id[{{$valt->id}}][{{$key}}][kriteria_value]" class="form-control" 
-                                            value="{{ count($valt->penilaian) > 0 ? $valt->penilaian[$key]->crips_id : '' }}">
+                                            value="{{ isset($valt->penilaian[$key]) ? $valt->penilaian[$key]->crips_id : '' }}">
                                     </td>
                                 @endforeach
+
                             </tr>
                             @empty
                             <tr>

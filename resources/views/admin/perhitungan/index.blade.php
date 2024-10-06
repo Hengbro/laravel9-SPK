@@ -70,30 +70,30 @@
         <div class="collapse show" id="normalisasi">
             <div class="card-body">
                 <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Alternatif / Kriteria</th>
-                                    @foreach ($kriteria as $key => $value)
-                                        <th>{{ $value->nama_kriteria }}</th>
-                                    @endforeach
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($normalisasi as $key => $value)
-                                    <tr>
-                                        <td>{{ $key }}</td>
-                                                @foreach($value as $key_1 => $value_1)
-                                                <td> 
-                                                    @if($value[count($value)-1] != $key_1)
-                                                        {{ $value_1 }}
-                                                    @endif
-                                                </td>
-                                                @endforeach
-                                    </tr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Alternatif / Kriteria</th>
+                            @foreach ($kriteria as $key => $value)
+                                <th>{{ $value->nama_kriteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($normalisasi as $key => $value)
+                            <tr>
+                                <td>{{ $key }}</td>
+                                @foreach($value as $key_1 => $value_1)
+                                    <td>
+                                        {{-- Tampilkan semua nilai, atau tambahkan logika khusus jika diperlukan --}}
+                                        {{ $value_1 }}
+                                    </td>
                                 @endforeach
-                            </tbody>
-                        </table>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
                 </div>
             </div>
         </div>
@@ -110,36 +110,56 @@
         <div class="collapse show" id="rank">
             <div class="card-body">
                 <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    @foreach ($kriteria as $key => $value)
-                                        <th>{{ $value->nama_kriteria }}</th>
-                                    @endforeach
-                                    <th rowspan="2" style="text-align: center; padding-bottom: 45px">Total</th>
-                                    <th rowspan="2" style="text-align: center; padding-bottom: 45px">Rank</th>
-                                </tr>
-                                <tr>
-                                    <th>Nama / Bobot</th>
-                                    @foreach ($kriteria as $key => $value)
-                                        <th>{{ $value->bobot }}</th>
-                                    @endforeach
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $no = 1;@endphp
-                                @foreach($sortedData as $key => $value)
-                                <tr>
-                                    <td>{{ $key }}</td>
-                                    @foreach($value as $key_1 => $value_1)
-                                    <td>{{ number_format($value_1, 1) }}</td>
-                                    @endforeach
-                                    <td>{{ $no++ }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                @php
+    $totals = []; // Array untuk menyimpan total
+@endphp
+
+@foreach($sortedData as $key => $value)
+    @php 
+        $total = 0;  // Inisialisasi total untuk setiap baris
+    @endphp
+    @foreach($value as $value_1)
+        @php 
+            $total += $value_1;  // Tambahkan nilai ke total
+        @endphp
+    @endforeach
+    @php 
+        $totals[$key] = $total; // Simpan total dalam array
+    @endphp
+@endforeach
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Nama / Bobot</th>
+            @foreach ($kriteria as $value)
+                <th>{{ $value->nama_kriteria }}</th>
+            @endforeach
+            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Format</th>
+            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Total</th>
+            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Rank</th>
+        </tr>
+        <tr>
+            @foreach ($kriteria as $key => $value)
+                <th>{{ $value->bobot }}</th>
+            @endforeach
+        </tr>
+    </thead>
+    <tbody>
+        @php $no = 1; @endphp
+        @foreach($totals as $key => $total)
+            <tr>
+                <td>{{ $key }}</td>
+                @foreach($sortedData[$key] as $value_1)
+                    <td>{{ number_format($value_1, 1) }}</td>
+                @endforeach
+                <td>{{ number_format($total, 1) }}</td>  {{-- Tampilkan total --}}
+                <td>{{ $no++ }}</td>  {{-- Tampilkan rank --}}
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
                 </div>
             </div>
         </div>
