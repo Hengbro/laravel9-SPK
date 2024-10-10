@@ -49,6 +49,67 @@
                         </div>
 
                         <div class="form-group">
+    <label for="agama">Agama</label>
+    <select class="form-control @error('agama') is-invalid @enderror" name="agama">
+        <option value="">-- Pilih Agama --</option>
+        <option value="Islam" {{ (old('agama') ?? $alternatif->agama) == 'Islam' ? 'selected' : '' }}>Islam</option>
+        <option value="Kristen" {{ (old('agama') ?? $alternatif->agama) == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+        <option value="Katolik" {{ (old('agama') ?? $alternatif->agama) == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+        <option value="Hindu" {{ (old('agama') ?? $alternatif->agama) == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+        <option value="Buddha" {{ (old('agama') ?? $alternatif->agama) == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+        <option value="Konghucu" {{ (old('agama') ?? $alternatif->agama) == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+    </select>
+
+    @error('agama')
+        <div class="invalid-feedback" role="alert">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
+
+
+                        <div class="form-group">
+                            <label for="nama">Umur</label>
+                            <input type="number" class="form-control @error ('umur') is-invalid @enderror" name="umur" value="{{ $alternatif->umur }}">
+
+                            @error('umur')
+                                <div class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
+                        </div>
+
+
+                        <div class="form-group">
+    <label for="jk">Jenis Kelamin</label>
+    <select class="form-control @error('jk') is-invalid @enderror" name="jk">
+        <option value="">-- Pilih Jenis Kelamin --</option>
+        <option value="Laki-laki" {{ (old('jk') ?? $alternatif->jk) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+        <option value="Perempuan" {{ (old('jk') ?? $alternatif->jk) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+    </select>
+
+    @error('jk')
+        <div class="invalid-feedback" role="alert">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
+
+
+                        <div class="form-group">
+                            <label for="nama">Jabatan</label>
+                            <input type="text" class="form-control @error ('jabatan') is-invalid @enderror" name="jabatan" value="{{ $alternatif->jabatan }}">
+
+                            @error('jabatan')
+                                <div class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
+                        </div>
+
+                        <div class="form-group">
                             <label for="nama">Alamat</label>
                             <input type="text" class="form-control @error ('alamat') is-invalid @enderror" name="alamat" value="{{ $alternatif->alamat }}">
 

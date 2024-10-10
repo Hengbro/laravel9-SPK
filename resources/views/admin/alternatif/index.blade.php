@@ -57,6 +57,65 @@
                         </div>
 
                         <div class="form-group">
+    <label for="nama">Agama</label>
+    <select class="form-control @error('agama') is-invalid @enderror" name="agama">
+        <option value="">Pilih Agama</option>
+        <option value="Katolik" {{ old('agama') == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+        <option value="Protestan" {{ old('agama') == 'Protestan' ? 'selected' : '' }}>Protestan</option>
+        <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
+        <option value="Budha" {{ old('agama') == 'Budha' ? 'selected' : '' }}>Budha</option>
+        <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+        <option value="Khonghucu" {{ old('agama') == 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
+    </select>
+
+    @error('agama')
+        <div class="invalid-feedback" role="alert">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
+
+
+                        <div class="form-group">
+                            <label for="nama">Umur</label>
+                            <input type="text" class="form-control @error ('umur') is-invalid @enderror" name="umur" value="{{ old('umur') }}">
+
+                            @error('umur')
+                                <div class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
+                        </div>
+
+                        <div class="form-group">
+    <label for="nama">Jenis Kelamin</label>
+    <select class="form-control @error('jk') is-invalid @enderror" name="jk">
+        <option value="">Pilih Jenis Kelamin</option>
+        <option value="Pria" {{ old('jk') == 'Pria' ? 'selected' : '' }}>Pria</option>
+        <option value="Wanita" {{ old('jk') == 'Wanita' ? 'selected' : '' }}>Wanita</option>
+    </select>
+
+    @error('jk')
+        <div class="invalid-feedback" role="alert">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
+
+                        <div class="form-group">
+                            <label for="nama">Jabatan</label>
+                            <input type="text" class="form-control @error ('jabatan') is-invalid @enderror" name="jabatan" value="{{ old('jabatan') }}">
+
+                            @error('jabatan')
+                                <div class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
+                        </div>
+
+                        <div class="form-group">
                             <label for="nama">Alamat</label>
                             <input type="text" class="form-control @error ('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}">
 
@@ -107,6 +166,10 @@
                                     <th>No</th>
                                     <th>Nama Karyawan</th>
                                     <th>NIK</th>
+                                    <th>Agama</th>
+                                    <th>Umur</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Jabatan</th>
                                     <th>Alamat</th>
                                     <th>Telepon</th>
                                     <th>Aksi</th>
@@ -120,6 +183,10 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $row->nama_alternatif }}</td>
                                         <td>{{ $row->nik }}</td>
+                                        <td>{{ $row->agama }}</td>
+                                        <td>{{ $row->umur }}</td>
+                                        <td>{{ $row->jk }}</td>
+                                        <td>{{ $row->jabatan }}</td>
                                         <td>{{ $row->alamat }}</td>
                                         <td>{{ $row->telepon }}</td>
                                         <td>

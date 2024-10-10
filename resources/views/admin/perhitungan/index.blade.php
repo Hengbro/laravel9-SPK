@@ -33,26 +33,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($alternatif as $alt => $valt)
-                                        <tr>
-                                            <td>{{ $valt->nama_alternatif }}</td>
-                                            @if (count($valt->penilaian) > 0)
-                                                    @foreach($valt->penilaian as $key => $value)
-                                                    <td> 
-                                                        {{ $value->nilai }}
-                                                    </td>
-                                                    @endforeach
+    @foreach ($alternatif as $alt => $valt)
+        <tr>
+            <td>{{ $valt->nama_alternatif }}</td>
+            @if (count($valt->penilaian) > 0)
+                @foreach($valt->penilaian as $key => $value)
+                    <td>{{ $value->nilai }}</td>
+                @endforeach
+            @else
+                <td colspan="{{ count($kriteria) }}">Tidak ada penilaian</td>
+            @endif
+        </tr>
+    @endforeach
+    @if ($alternatif->isEmpty())
+        <tr>
+            <td colspan="{{ count($kriteria) + 1 }}">Tidak ada data!</td>
+        </tr>
+    @endif
+</tbody>
 
-                                            @endif
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td>Tidak ada data!</td>
-                                        </tr>
-                                    
-
-                                    @endforelse
-                                </tbody>
                             </table>
                     </div>
                 </div>
@@ -98,6 +97,43 @@
             </div>
         </div>
     </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        <a href="#fuzzy" class="d-block card-header py-3" data-toggle="collapse"
+                role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Hasil Perhitungan Fuzzy</h6>
+                </a>
+    <div class="card-body", id="fuzzy">
+    <div class="table-responsive">
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Alternatif</th>
+            <th>Detail Perhitungan</th>
+            <th>Hasil Fuzzy</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($fuzzyValues as $namaAlternatif => $nilaiFuzzy)
+            <tr>
+                <td>{{ $namaAlternatif }}</td>
+                <td>
+                    @foreach($fuzzyDetails[$namaAlternatif] as $detail)
+                        <p>{{ $detail }}</p>
+                    @endforeach
+                </td>
+                <td>{{ number_format($nilaiFuzzy, 2) }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
+    </div>
+
+
+    </div>
+</div>
 
         <div class="card shadow mb-4">
             <!-- Card Header - Accordion -->

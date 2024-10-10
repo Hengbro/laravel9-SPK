@@ -27,6 +27,10 @@ class AlternatifController extends Controller
 
             'nama_alternatif' => 'required|string',
             'nik' => 'required|string',
+            'agama' => 'required|string',
+            'umur' => 'required|string',
+            'jk' => 'required|string',
+            'jabatan' => 'required|string',
             'alamat' => 'required|string',
             'telepon' => 'required|string',
 
@@ -37,6 +41,10 @@ class AlternatifController extends Controller
             $alternatif = new Alternatif();
             $alternatif->nama_alternatif = $request->nama_alternatif;
             $alternatif->nik = $request->nik;
+            $alternatif->agama = $request->agama;
+            $alternatif->umur = $request->umur;
+            $alternatif->jk = $request->jk;
+            $alternatif->jabatan = $request->jabatan;
             $alternatif->alamat = $request->alamat;
             $alternatif->telepon = $request->telepon;
             $alternatif->save();
@@ -64,6 +72,10 @@ class AlternatifController extends Controller
 
             'nama_alternatif' => 'required|string',
             'nik' => 'required|string',
+            'agama' => 'required|string',
+            'umur' => 'required|string',
+            'jk' => 'required|string',
+            'jabatan' => 'required|string',
             'alamat' => 'required|string',
             'telepon' => 'required|string',
 
@@ -75,6 +87,10 @@ class AlternatifController extends Controller
             $alternatif->update([
                 'nama_alternatif' => $request->nama_alternatif,
                 'nik' => $request->nik,
+                'agama' => $request->agama,
+                'umur' => $request->umur,
+                'jk' => $request->jk,
+                'jabatan' => $request->jabatan,
                 'alamat' => $request->alamat,
                 'telepon' => $request->telepon
             ]);
