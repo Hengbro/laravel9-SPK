@@ -35,7 +35,14 @@
     <div>
         <table>
             <tr>
-                <td style="padding-right: 240px; padding-left: 20px"><img src="{{ asset('build/assets/images/logo.png') }}" width="90" height="90" ></td>
+            <td style="padding-right: 240px; padding-left: 20px">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/logoptboss.png'))) }}" width="90" height="90" alt="Logo">
+</td>
+
+
+            </td>
+
+                </td>
                 <td>
                     <center>
                         <font size="4">PMKS PT BOSS</font><br>

@@ -37,7 +37,8 @@
     <div>
         <table>
             <tr>
-                <td style="padding-right: 240px; padding-left: 20px"><img src="{{ asset('build/assets/images/logoptbos.jpeg') }}" width="90" height="90" ></td>
+                <td style="padding-right: 240px; padding-left: 20px">
+                    
                 <td>
                     <center>
                         <font size="4">PMKS PT BOSS</font><br>
@@ -51,7 +52,7 @@
 
       <hr class="garis1"/>
       <div style="margin-top: 25px; margin-bottom: 25px;">
-        <center><strong><u>LIST PENERIMA BANTUAN</u></strong></center>
+        <center><strong><u>LIST LAPORAN</u></strong></center>
       </div>
 
       <div class="collapse show" id="rank">

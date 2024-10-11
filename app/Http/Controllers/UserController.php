@@ -115,7 +115,11 @@ class UserController extends Controller
         $tanggal = Carbon::now()->formatLocalized('%A, %d %B %Y');
         $user = User::get();
 
-        $pdf = PDF::loadView('admin.user.user-pdf',compact('user','tanggal'));
+        $pdf = PDF::loadView('admin.user.user-pdf', compact('user', 'tanggal'))
+           ->setPaper('A3', 'portrait')
+           ->setOption('isHtml5ParserEnabled', true)
+           ->setOption('isRemoteEnabled', true);
+
         $pdf->setPaper('A3', 'potrait');
         return $pdf->stream('user.pdf');
     }

@@ -79,7 +79,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($normalisasi as $key => $value)
+                        @foreach ($normalisasiTahapDua as $key => $value)
                             <tr>
                                 <td>{{ $key }}</td>
                                 @foreach($value as $key_1 => $value_1)
@@ -150,7 +150,7 @@
     $totals = []; // Array untuk menyimpan total
 @endphp
 
-@foreach($sortedData as $key => $value)
+@foreach($normalisasiTahapTiga as $key => $value)
     @php 
         $total = 0;  // Inisialisasi total untuk setiap baris
     @endphp
@@ -171,7 +171,6 @@
             @foreach ($kriteria as $value)
                 <th>{{ $value->nama_kriteria }}</th>
             @endforeach
-            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Format</th>
             <th rowspan="2" style="text-align: center; padding-bottom: 40px">Total</th>
             <th rowspan="2" style="text-align: center; padding-bottom: 40px">Rank</th>
         </tr>
@@ -186,9 +185,12 @@
         @foreach($totals as $key => $total)
             <tr>
                 <td>{{ $key }}</td>
-                @foreach($sortedData[$key] as $value_1)
-                    <td>{{ number_format($value_1, 1) }}</td>
-                @endforeach
+                @foreach($normalisasiTahapTiga[$key] as $key_1 => $value_1)
+                    <td>
+                                {{-- Tampilkan semua nilai, atau tambahkan logika khusus jika diperlukan --}}
+                                        {{ $value_1 }}
+                                    </td>
+                                @endforeach
                 <td>{{ number_format($total, 1) }}</td>  {{-- Tampilkan total --}}
                 <td>{{ $no++ }}</td>  {{-- Tampilkan rank --}}
             </tr>

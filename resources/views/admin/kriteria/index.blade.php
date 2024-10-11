@@ -59,7 +59,7 @@
                         </div>
                          <div class="form-group">
                             <label for="bobot">Bobot Kriteria</label>
-                            <input type="text" class="form-control @error ('bobot') is-invalid @enderror" name="bobot">
+                            <input type="number" class="form-control @error ('bobot') is-invalid @enderror" name="bobot">
 
                             @error('bobot')
                                 <div class="invalid-feedback" role="alert">
