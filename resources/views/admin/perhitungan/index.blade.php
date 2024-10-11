@@ -62,7 +62,47 @@
             <!-- Card Header - Accordion -->
             <a href="#normalisasi" class="d-block card-header py-3" data-toggle="collapse"
             role="button" aria-expanded="true" aria-controls="collapseCardExample">
-            <h6 class="m-0 font-weight-bold text-primary">Tahap Normalisasi</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tahap Normalisasi 1</h6>
+            </a>
+
+        <!-- Card Content - Collapse -->
+        <div class="collapse show" id="normalisasi">
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Alternatif / Kriteria</th>
+                            @foreach ($kriteria as $key => $value)
+                                <th>{{ $value->nama_kriteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($fuzzyNormalisasi as $key => $value)
+                            <tr>
+                                <td>{{ $key }}</td>
+                                @foreach($value as $key_1 => $value_1)
+                                    <td>
+                                        {{-- Tampilkan semua nilai, atau tambahkan logika khusus jika diperlukan --}}
+                                        {{ number_format($value_1, 2) }}
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="card shadow mb-4">
+            <!-- Card Header - Accordion -->
+            <a href="#normalisasi" class="d-block card-header py-3" data-toggle="collapse"
+            role="button" aria-expanded="true" aria-controls="collapseCardExample">
+            <h6 class="m-0 font-weight-bold text-primary">Tahap Normalisasi 2</h6>
             </a>
 
         <!-- Card Content - Collapse -->
@@ -85,7 +125,7 @@
                                 @foreach($value as $key_1 => $value_1)
                                     <td>
                                         {{-- Tampilkan semua nilai, atau tambahkan logika khusus jika diperlukan --}}
-                                        {{ $value_1 }}
+                                        {{ number_format($value_1, 2) }}
                                     </td>
                                 @endforeach
                             </tr>
@@ -191,7 +231,7 @@
                                         {{ $value_1 }}
                                     </td>
                                 @endforeach
-                <td>{{ number_format($total, 1) }}</td>  {{-- Tampilkan total --}}
+                <td>{{ number_format($total, 4) }}</td>  {{-- Tampilkan total --}}
                 <td>{{ $no++ }}</td>  {{-- Tampilkan rank --}}
             </tr>
         @endforeach

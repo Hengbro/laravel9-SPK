@@ -20,7 +20,7 @@ class AlgoritmaController extends Controller
     {
        
         $alternatif = Alternatif::with('penilaian.crips')->get();
-        $kriteria = Kriteria::with('crips')->orderBy('nama_kriteria','ASC')->get();
+        $kriteria = Kriteria::with('crips')->get();
         $penilaian = Penilaian::with('crips','alternatif')->get();
          if (count($penilaian) == 0) {
              return redirect(route('penilaian.index'));
@@ -38,9 +38,11 @@ foreach ($kriteria as $key => $value) {
 
 // Proses Fuzzy 
 $fuzzyNormalisasi = [];
-foreach ($penilaian as $key_1 => $value_1) {
-    $fuzzyNormalisasi[$value_1->alternatif->nama_alternatif][$value->id] = ($value_1->nilai - 60) / (80-60);
-
+foreach ($kriteria as $key => $value) {
+    foreach ($penilaian as $key_1 => $value_1) {
+        $fuzzyNormalisasi[$value_1->alternatif->nama_alternatif][$value->id] = ($value_1->nilai - 60) / (80-60);
+    
+    }
 }
 
 // Proses Normalisasi
@@ -48,7 +50,7 @@ $normalisasiTahapDua = [];
 foreach ($kriteria as $key => $value) {
     foreach ($penilaian as $key_1 => $value_1) {
         $maxFuzzy = max(array_map('max', $fuzzyNormalisasi));
-        $normalisasiTahapDua[$value_1->alternatif->nama_alternatif][$value->id] = ($value_1->nilai - 60) / (80-60) / $maxFuzzy;
+        $normalisasiTahapDua[$value_1->alternatif->nama_alternatif][$value->id] = (($value_1->nilai - 60) / (80-60)) / $maxFuzzy;
 
     }
 }
@@ -125,7 +127,7 @@ foreach ($alternatif as $alt => $valt) {
 
     if ($denominator > 0) {
         $fuzzyValues[$valt->nama_alternatif] = $numerator / $denominator;
-        $fuzzyDetails[$valt->nama_alternatif][] = "Hasil defuzzifikasi = " . number_format($fuzzyValues[$valt->nama_alternatif], 2);
+        $fuzzyDetails[$valt->nama_alternatif][] = "Hasil defuzzifikasi = " . number_format($fuzzyValues[$valt->nama_alternatif], 6);
     } else {
         $fuzzyValues[$valt->nama_alternatif] = 0; 
         $fuzzyDetails[$valt->nama_alternatif][] = "Tidak ada aturan yang memenuhi, hasil defuzzifikasi = 0";
@@ -193,7 +195,7 @@ foreach ($kriteria as $key => $value) {
             $nilaiNormalisasi = $hasil[$value['id']];
             // Hitung normalisasi tahap tiga menggunakan bobot dari $value
             $normalisasiTahapTiga[$namaAlternatif][$value['id']] = 
-                number_format(($value['bobot'] / 100) * $nilaiNormalisasi, 2);
+                number_format(($value['bobot'] / 100) * $nilaiNormalisasi, 5);
         }
     }
 }
