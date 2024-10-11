@@ -71,6 +71,7 @@ foreach ($kriteria as $key => $value) {
     }
 }
 
+
 /// Perhitungan Fuzzy Tsukamoto
 // Perhitungan Fuzzy Tsukamoto dengan Detail
 $fuzzyValues = [];
@@ -131,19 +132,9 @@ foreach ($alternatif as $alt => $valt) {
     }
 }
         
-
-        $ranking = $normalisasi;
-        foreach ($normalisasi as $key => $value) {
-            $ranking[$key][] = array_sum($rank[$key]);
-        }
-   //     arsort($ranking);
-
-        $sortedData = collect($ranking)->sortByDesc(function ($value) {
-            return array_sum($value);
-        })->toArray();
         
         // dd( $fuzzyNormalisasi, $normalisasiTahapDua, json_encode($normalisasiTahapTiga));
-        return view('admin.perhitungan.index', compact('alternatif','kriteria','fuzzyNormalisasi', 'normalisasiTahapDua', 'normalisasiTahapTiga', 'fuzzyValues','fuzzyDetails','sortedData'));
+        return view('admin.perhitungan.index', compact('alternatif','kriteria','fuzzyNormalisasi', 'normalisasiTahapDua', 'normalisasiTahapTiga', 'fuzzyValues','fuzzyDetails'));
        
     }
 
@@ -189,6 +180,9 @@ foreach ($kriteria as $key => $value) {
     }
 }
 
+// 𝑉3 = (0,30 ∗ 0.61) + (0,10 ∗ 0,38) + (0,15 ∗ 0.38) + (0,20 ∗ 1) + (0,10 ∗ 1) + (0,15
+// ∗ 0,67)
+
 // Proses Normalisasi tahap 3
 $normalisasiTahapTiga = [];
 $total = 0;
@@ -203,6 +197,7 @@ foreach ($kriteria as $key => $value) {
         }
     }
 }
+
 
         /// Perhitungan Fuzzy Tsukamoto
 // Perhitungan Fuzzy Tsukamoto dengan Detail
@@ -264,19 +259,13 @@ foreach ($alternatif as $alt => $valt) {
     }
 }
 
-        $ranking = $normalisasi;
-        foreach ($normalisasi as $key => $value) {
-            $ranking[$key][] = array_sum($rank[$key]);
-        }
         
      //   arsort($ranking);
 
-     $sortedData = collect($ranking)->sortByDesc(function ($value) {
-        return array_sum($value);
-    })->toArray();
 
 
-        $pdf = PDF::loadView('admin.perhitungan.perhitungan-pdf',compact('alternatif','kriteria','normalisasi','fuzzyValues','fuzzyDetails', 'sortedData','tanggal'));
+
+        $pdf = PDF::loadView('admin.perhitungan.perhitungan-pdf',compact('alternatif','kriteria','fuzzyNormalisasi', 'normalisasiTahapDua', 'normalisasiTahapTiga', 'fuzzyValues','fuzzyDetails', 'tanggal'));
         $pdf->setPaper('A3', 'potrait');
         return $pdf->stream('perhitungan.pdf');
     }
