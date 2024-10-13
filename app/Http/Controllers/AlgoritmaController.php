@@ -21,6 +21,7 @@ class AlgoritmaController extends Controller
        
         $alternatif = Alternatif::with('penilaian.crips')->get();
         $kriteria = Kriteria::with('crips')->get();
+        // $kriteria = Kriteria::with('crips')->orderBy('nama_kriteria','ASC')->get();
         $penilaian = Penilaian::with('crips','alternatif')->get();
          if (count($penilaian) == 0) {
              return redirect(route('penilaian.index'));
@@ -68,7 +69,7 @@ foreach ($kriteria as $key => $value) {
             $nilaiNormalisasi = $hasil[$value['id']];
             // Hitung normalisasi tahap tiga menggunakan bobot dari $value
             $normalisasiTahapTiga[$namaAlternatif][$value['id']] = 
-                number_format(($value['bobot'] / 100) * $nilaiNormalisasi, 2);
+                number_format(($value['bobot'] / 100) * $nilaiNormalisasi, 4);
         }
     }
 }
@@ -127,7 +128,7 @@ foreach ($alternatif as $alt => $valt) {
 
     if ($denominator > 0) {
         $fuzzyValues[$valt->nama_alternatif] = $numerator / $denominator;
-        $fuzzyDetails[$valt->nama_alternatif][] = "Hasil defuzzifikasi = " . number_format($fuzzyValues[$valt->nama_alternatif], 6);
+        $fuzzyDetails[$valt->nama_alternatif][] = "Hasil defuzzifikasi = " . number_format($fuzzyValues[$valt->nama_alternatif], 3);
     } else {
         $fuzzyValues[$valt->nama_alternatif] = 0; 
         $fuzzyDetails[$valt->nama_alternatif][] = "Tidak ada aturan yang memenuhi, hasil defuzzifikasi = 0";
@@ -195,7 +196,7 @@ foreach ($kriteria as $key => $value) {
             $nilaiNormalisasi = $hasil[$value['id']];
             // Hitung normalisasi tahap tiga menggunakan bobot dari $value
             $normalisasiTahapTiga[$namaAlternatif][$value['id']] = 
-                number_format(($value['bobot'] / 100) * $nilaiNormalisasi, 5);
+                number_format(($value['bobot'] / 100) * $nilaiNormalisasi, 4);
         }
     }
 }
@@ -254,7 +255,7 @@ foreach ($alternatif as $alt => $valt) {
 
     if ($denominator > 0) {
         $fuzzyValues[$valt->nama_alternatif] = $numerator / $denominator;
-        $fuzzyDetails[$valt->nama_alternatif][] = "Hasil defuzzifikasi = " . number_format($fuzzyValues[$valt->nama_alternatif], 2);
+        $fuzzyDetails[$valt->nama_alternatif][] = "Hasil defuzzifikasi = " . number_format($fuzzyValues[$valt->nama_alternatif], 4);
     } else {
         $fuzzyValues[$valt->nama_alternatif] = 0; 
         $fuzzyDetails[$valt->nama_alternatif][] = "Tidak ada aturan yang memenuhi, hasil defuzzifikasi = 0";
