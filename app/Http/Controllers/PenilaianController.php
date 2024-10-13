@@ -17,7 +17,7 @@ class PenilaianController extends Controller
     public function index(){
         $alternatif = Alternatif::with('penilaian.crips')->get();
       
-        $kriteria = Kriteria::with('crips')->orderBy('id','ASC')->get();
+        $kriteria = Kriteria::with('crips')->get();
         //return response()->json($alternatif);
         return view('admin.penilaian.index', compact('alternatif','kriteria'));
     }
