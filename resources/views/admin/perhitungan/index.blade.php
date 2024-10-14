@@ -59,16 +59,16 @@
         </div>
 
         <div class="card shadow mb-4">
-            <!-- Card Header - Accordion -->
-            <a href="#normalisasi" class="d-block card-header py-3" data-toggle="collapse"
-            role="button" aria-expanded="true" aria-controls="collapseCardExample">
-            <h6 class="m-0 font-weight-bold text-primary">Tahap Normalisasi 1</h6>
-            </a>
+    <!-- Card Header - Accordion -->
+    <a href="#detailPerhitungan" class="d-block card-header py-3" data-toggle="collapse"
+       role="button" aria-expanded="true" aria-controls="collapseCardExample">
+        <h6 class="m-0 font-weight-bold text-primary">Detail Perhitungan Normalisasi Tahap 1</h6>
+    </a>
 
-        <!-- Card Content - Collapse -->
-        <div class="collapse show" id="normalisasi">
-            <div class="card-body">
-                <div class="table-responsive">
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="detailPerhitungan">
+        <div class="card-body">
+            <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -79,36 +79,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($fuzzyNormalisasi as $key => $value)
+                        @foreach ($detailPerhitungan as $nama_alternatif => $nilai_kriteria)
                             <tr>
-                                <td>{{ $key }}</td>
-                                @foreach($value as $key_1 => $value_1)
-                                    <td>
-                                        {{-- Tampilkan semua nilai, atau tambahkan logika khusus jika diperlukan --}}
-                                        {{ number_format($value_1, 2) }}
-                                    </td>
+                                <td>{{ $nama_alternatif }}</td>
+                                @foreach($nilai_kriteria as $id_kriteria => $detail)
+                                    <td>{{ $detail }}</td>
                                 @endforeach
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-
-                </div>
             </div>
         </div>
     </div>
+</div>
 
-        <div class="card shadow mb-4">
-            <!-- Card Header - Accordion -->
-            <a href="#normalisasi" class="d-block card-header py-3" data-toggle="collapse"
-            role="button" aria-expanded="true" aria-controls="collapseCardExample">
-            <h6 class="m-0 font-weight-bold text-primary">Tahap Normalisasi 2</h6>
-            </a>
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#hasilNormalisasi" class="d-block card-header py-3" data-toggle="collapse"
+       role="button" aria-expanded="true" aria-controls="collapseCardExample">
+        <h6 class="m-0 font-weight-bold text-primary">Hasil Normalisasi Tahap 1</h6>
+    </a>
 
-        <!-- Card Content - Collapse -->
-        <div class="collapse show" id="normalisasi">
-            <div class="card-body">
-                <div class="table-responsive">
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="hasilNormalisasi">
+        <div class="card-body">
+            <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -119,24 +115,95 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($normalisasiTahapDua as $key => $value)
+                        @foreach ($fuzzyNormalisasi as $nama_alternatif => $nilai_kriteria)
                             <tr>
-                                <td>{{ $key }}</td>
-                                @foreach($value as $key_1 => $value_1)
-                                    <td>
-                                        {{-- Tampilkan semua nilai, atau tambahkan logika khusus jika diperlukan --}}
-                                        {{ number_format($value_1, 2) }}
-                                    </td>
+                                <td>{{ $nama_alternatif }}</td>
+                                @foreach($nilai_kriteria as $id_kriteria => $nilai)
+                                    <td>{{ number_format($nilai, 2) }}</td>
                                 @endforeach
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-
-                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#detailPerhitunganTahapDua" class="d-block card-header py-3" data-toggle="collapse"
+       role="button" aria-expanded="true" aria-controls="collapseCardExample">
+        <h6 class="m-0 font-weight-bold text-primary">Detail Perhitungan Normalisasi Tahap 2</h6>
+    </a>
+
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="detailPerhitunganTahapDua">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Alternatif / Kriteria</th>
+                            @foreach ($kriteria as $key => $value)
+                                <th>{{ $value->nama_kriteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($detailPerhitunganTahapDua as $nama_alternatif => $nilai_kriteria)
+                            <tr>
+                                <td>{{ $nama_alternatif }}</td>
+                                @foreach($nilai_kriteria as $id_kriteria => $detail)
+                                    <td>{{ $detail }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#hasilNormalisasiTahapDua" class="d-block card-header py-3" data-toggle="collapse"
+       role="button" aria-expanded="true" aria-controls="collapseCardExample">
+        <h6 class="m-0 font-weight-bold text-primary">Hasil Normalisasi Tahap 2</h6>
+    </a>
+
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="hasilNormalisasiTahapDua">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Alternatif / Kriteria</th>
+                            @foreach ($kriteria as $key => $value)
+                                <th>{{ $value->nama_kriteria }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($normalisasiTahapDua as $nama_alternatif => $nilai_kriteria)
+                            <tr>
+                                <td>{{ $nama_alternatif }}</td>
+                                @foreach($nilai_kriteria as $id_kriteria => $nilai)
+                                    <td>{{ number_format($nilai, 2) }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
@@ -151,27 +218,85 @@
         <tr>
             <th>Alternatif</th>
             <th>Detail Perhitungan</th>
+            <th>Detail Perhitungan Hasil</th>
             <th>Hasil Fuzzy</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($fuzzyValues as $namaAlternatif => $nilaiFuzzy)
-            <tr>
-                <td>{{ $namaAlternatif }}</td>
-                <td>
-                    @foreach($fuzzyDetails[$namaAlternatif] as $detail)
-                        <p>{{ $detail }}</p>
-                    @endforeach
-                </td>
-                <td>{{ number_format($nilaiFuzzy, 2) }}</td>
-            </tr>
-        @endforeach
-    </tbody>
+    @foreach($fuzzyValues as $namaAlternatif => $nilaiFuzzy)
+        <tr>
+            <td>{{ $namaAlternatif }}</td>
+            <td>
+                @foreach($fuzzyDetails[$namaAlternatif] as $detail)
+                    <p>{{ $detail }}</p>
+                @endforeach
+            </td>
+            <td>
+                {!! nl2br($nilaiFuzzy['detail']) !!} 
+            </td>
+            <td>{{ number_format($nilaiFuzzy['hasil'], 2) }}</td>
+        </tr>
+    @endforeach
+</tbody>
+
 </table>
 
     </div>
 
 
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#detailPerhitunganTahapTiga" class="d-block card-header py-3" data-toggle="collapse"
+       role="button" aria-expanded="true" aria-controls="collapseCardExample">
+        <h6 class="m-0 font-weight-bold text-primary">Detail Perhitungan Normalisasi Tahap 3</h6>
+    </a>
+
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="detailPerhitunganTahapTiga">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Alternatif / Kriteria</th>
+                            @foreach ($kriteria as $value)
+                                <th>{{ $value->nama_kriteria }}</th>
+                            @endforeach
+                            <th>Total</th> <!-- Menambahkan kolom untuk Total -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $totals = []; // Array untuk menyimpan total
+                        @endphp
+
+                        @foreach ($detailPerhitunganTahapTiga as $nama_alternatif => $nilai_kriteria)
+                            <tr>
+                                <td>{{ $nama_alternatif }}</td>
+                                @php 
+                                    $total = 0;
+                                @endphp
+
+                                @foreach($nilai_kriteria as $id_kriteria => $detail)
+                                    <td>{{ $detail }}</td>
+                                    @php
+                                        // Tambahkan nilai ke total
+                                        $total += $normalisasiTahapTiga[$nama_alternatif][$id_kriteria];
+                                    @endphp
+                                @endforeach
+                                <td>{{ number_format($total, 4) }}</td> <!-- Tampilkan Total -->
+                                @php
+                                    $totals[$nama_alternatif] = $total; // Simpan total dalam array
+                                @endphp
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -187,17 +312,6 @@
         <div class="card-body">
             <div class="table-responsive">
                 @php
-                    $totals = []; // Array untuk menyimpan total
-                @endphp
-
-                @foreach($normalisasiTahapTiga as $key => $value)
-                    @php 
-                        $total = array_sum($value); // Hitung total langsung
-                        $totals[$key] = $total; // Simpan total dalam array
-                    @endphp
-                @endforeach
-
-                @php
                     // Urutkan total dari yang terbesar ke terkecil
                     arsort($totals);
                 @endphp
@@ -205,17 +319,9 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Nama / Bobot</th>
-                            @foreach ($kriteria as $value)
-                                <th>{{ $value->nama_kriteria }}</th>
-                            @endforeach
-                            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Total</th>
-                            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Rank</th>
-                        </tr>
-                        <tr>
-                            @foreach ($kriteria as $key => $value)
-                                <th>{{ $value->bobot }}</th>
-                            @endforeach
+                            <th>Nama Alternatif</th>
+                            <th>Total</th>
+                            <th>Rank</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -223,9 +329,6 @@
                         @foreach($totals as $key => $total)
                             <tr>
                                 <td>{{ $key }}</td>
-                                @foreach($normalisasiTahapTiga[$key] as $value_1)
-                                    <td>{{ $value_1 }}</td>
-                                @endforeach
                                 <td>{{ number_format($total, 4) }}</td>  {{-- Tampilkan total --}}
                                 <td>{{ $rank++ }}</td> {{-- Tampilkan ranking --}}
                             </tr>
@@ -236,6 +339,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 @stop
