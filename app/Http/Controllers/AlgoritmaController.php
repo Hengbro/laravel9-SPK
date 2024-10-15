@@ -37,45 +37,55 @@ foreach ($kriteria as $key => $value) {
     }
 }
 
-    $fuzzyNormalisasi = [];
-    $detailPerhitungan = [];
-    
-    // Proses Fuzzy
-    foreach ($kriteria as $key => $value) {
-        foreach ($penilaian as $key_1 => $value_1) {
-            $nilai = $value_1->nilai;
+$fuzzyNormalisasi = [];
+$detailPerhitungan = [];
+
+// Proses Fuzzy
+foreach ($kriteria as $kriteriaItem) {
+    foreach ($penilaian as $penilaianItem) {
+        // Pastikan nilai yang diambil sesuai dengan kriteria saat ini
+        if ($penilaianItem->kriteria_id == $kriteriaItem->id) {
+            $nilai = $penilaianItem->nilai; // Ambil nilai yang sesuai dengan kriteria dan alternatif
             $batasBawah = 60;
             $batasAtas = 80;
             $hasil = ($nilai - $batasBawah) / ($batasAtas - $batasBawah);
             
             // Simpan hasil perhitungan
-            $fuzzyNormalisasi[$value_1->alternatif->nama_alternatif][$value->id] = $hasil;
+            $fuzzyNormalisasi[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = $hasil;
             
             // Simpan detail perhitungan
-            $detailPerhitungan[$value_1->alternatif->nama_alternatif][$value->id] = "($nilai - $batasBawah) / ($batasAtas - $batasBawah) = $hasil";
+            $detailPerhitungan[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = "($nilai - $batasBawah) / ($batasAtas - $batasBawah) = $hasil";
         }
     }
+}
 
-    $normalisasiTahapDua = [];
-    $detailPerhitunganTahapDua = [];
-    $maxFuzzy = max(array_map('max', $fuzzyNormalisasi));
-    
-    foreach ($kriteria as $key => $value) {
-        foreach ($penilaian as $key_1 => $value_1) {
-            $nilai = $value_1->nilai;
+
+
+$normalisasiTahapDua = [];
+$detailPerhitunganTahapDua = [];
+$maxFuzzy = max(array_map('max', $fuzzyNormalisasi));
+
+// Proses Normalisasi Tahap Kedua
+foreach ($kriteria as $kriteriaItem) {
+    foreach ($penilaian as $penilaianItem) {
+        // Pastikan nilai yang diambil sesuai dengan kriteria saat ini
+        if ($penilaianItem->kriteria_id == $kriteriaItem->id) {
+            $nilai = $penilaianItem->nilai; // Ambil nilai yang sesuai dengan kriteria dan alternatif
             $batasBawah = 60;
             $batasAtas = 80;
             $fuzzyNormalisasiValue = ($nilai - $batasBawah) / ($batasAtas - $batasBawah);
             $hasilNormalisasi = $fuzzyNormalisasiValue / $maxFuzzy;
-            
+
             // Simpan hasil normalisasi tahap kedua
-            $normalisasiTahapDua[$value_1->alternatif->nama_alternatif][$value->id] = $hasilNormalisasi;
-            
+            $normalisasiTahapDua[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = $hasilNormalisasi;
+
             // Simpan detail perhitungan
-            $detailPerhitunganTahapDua[$value_1->alternatif->nama_alternatif][$value->id] = 
+            $detailPerhitunganTahapDua[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = 
                 "(($nilai - $batasBawah) / ($batasAtas - $batasBawah)) / $maxFuzzy = $hasilNormalisasi";
         }
     }
+}
+
 
 // 𝑉3 = (0,30 ∗ 0.61) + (0,10 ∗ 0,38) + (0,15 ∗ 0.38) + (0,20 ∗ 1) + (0,10 ∗ 1) + (0,15
 // ∗ 0,67)
@@ -122,18 +132,19 @@ foreach ($alternatif as $alt => $valt) {
         $high = 0;
 
         // Proses penentuan derajat keanggotaan
-        if ($nilai <= 60) {
-            $low = 1;
-            $fuzzyDetails[$valt->nama_alternatif][] = "$nilai sepenuhnya LOW (derajat keanggotaan = 1)";
-        } elseif ($nilai > 60 && $nilai <= 80) {
-            $low = (80 - $nilai) / 20;
-            $medium = ($nilai - 60) / 20;
-            $fuzzyDetails[$valt->nama_alternatif][] = "$nilai derajat keanggotaan LOW = " . number_format($low, 2) . ", MEDIUM = " . number_format($medium, 2);
-        } elseif ($nilai > 80 && $nilai <= 100) {
-            $medium = (100 - $nilai) / 20;
-            $high = ($nilai - 80) / 20;
-            $fuzzyDetails[$valt->nama_alternatif][] = "$nilai derajat keanggotaan MEDIUM = " . number_format($medium, 2) . ", HIGH = " . number_format($high, 2);
-        }
+if ($nilai <= 60) {
+    $low = 1;
+    $fuzzyDetails[$valt->nama_alternatif][] = number_format($low, 2);
+} elseif ($nilai > 60 && $nilai <= 80) {
+    $low = (80 - $nilai) / 20;
+    $medium = ($nilai - 60) / 20;
+    $fuzzyDetails[$valt->nama_alternatif][] = number_format($low, 2) . ", " . number_format($medium, 2);
+} elseif ($nilai > 80 && $nilai <= 100) {
+    $medium = (100 - $nilai) / 20;
+    $high = ($nilai - 80) / 20;
+    $fuzzyDetails[$valt->nama_alternatif][] = number_format($medium, 2) . ", " . number_format($high, 2);
+}
+
 
         $rules[] = [
             'low' => $low,
@@ -155,11 +166,11 @@ foreach ($alternatif as $alt => $valt) {
     }
 
     // Tambahkan detail perhitungan numerator dan denominator
-    $fuzzyValues[$valt->nama_alternatif]['detail'] = "Numerator: " . number_format($numerator, 2) . " = " . implode(' + ', array_map(function($rule) {
+    $fuzzyValues[$valt->nama_alternatif]['detail'] = implode(' + ', array_map(function($rule) {
         return "({$rule['low']}*{$rule['nilai']}) + ({$rule['medium']}*{$rule['nilai']}) + ({$rule['high']}*{$rule['nilai']})";
-    }, $rules)) . "\n Denominator: " . number_format($denominator, 2) . " = " . implode(' + ', array_map(function($rule) {
+    }, $rules)) . " = " .  number_format($numerator , 2) . "\n"  . implode(' + ', array_map(function($rule) {
         return "({$rule['low']} + {$rule['medium']} + {$rule['high']})";
-    }, $rules)) . ")";
+    }, $rules)) . ")" . " = " .  number_format($denominator, 2);
 
     // Hitung hasil akhir defuzzifikasi jika denominator > 0
     if ($denominator > 0) {
