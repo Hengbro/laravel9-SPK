@@ -81,7 +81,7 @@ foreach ($kriteria as $kriteriaItem) {
 
             // Simpan detail perhitungan
             $detailPerhitunganTahapDua[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = 
-                "(($nilai - $batasBawah) / ($batasAtas - $batasBawah)) / $maxFuzzy = $hasilNormalisasi";
+                "(($nilai - $batasBawah) / ($batasAtas - $batasBawah)) / $maxFuzzy = " .number_format($hasilNormalisasi, 4);
         }
     }
 }
@@ -107,7 +107,7 @@ $normalisasiTahapTiga = [];
                 
                 // Simpan detail perhitungan
                 $detailPerhitunganTahapTiga[$namaAlternatif][$value['id']] = 
-                    "($bobot * $nilaiNormalisasi) = " . number_format($hasilNormalisasi, 4);
+                   "($bobot" . " * " . number_format($nilaiNormalisasi, 4) . ") = " . number_format($hasilNormalisasi, 4);
             }
         }
     }
