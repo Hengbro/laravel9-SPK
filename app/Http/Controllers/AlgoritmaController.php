@@ -63,28 +63,36 @@ foreach ($kriteria as $kriteriaItem) {
 
 $normalisasiTahapDua = [];
 $detailPerhitunganTahapDua = [];
-$maxFuzzy = max(array_map('max', $fuzzyNormalisasi));
 
 // Proses Normalisasi Tahap Kedua
 foreach ($kriteria as $kriteriaItem) {
     foreach ($penilaian as $penilaianItem) {
         // Pastikan nilai yang diambil sesuai dengan kriteria saat ini
         if ($penilaianItem->kriteria_id == $kriteriaItem->id) {
-            $nilai = $penilaianItem->nilai; // Ambil nilai yang sesuai dengan kriteria dan alternatif
+            $alternatifName = $penilaianItem->alternatif->nama_alternatif;
+
+            // Ambil nilai yang sesuai dengan kriteria dan alternatif
+            $nilai = $penilaianItem->nilai; 
             $batasBawah = 60;
             $batasAtas = 80;
             $fuzzyNormalisasiValue = ($nilai - $batasBawah) / ($batasAtas - $batasBawah);
+            
+            // Cari nilai maksimum per alternatif dan kriteria di dalam $fuzzyNormalisasi
+            $maxFuzzy = max($fuzzyNormalisasi[$alternatifName]);
+            
+            // Hitung hasil normalisasi dengan maxFuzzy berdasarkan alternatif tersebut
             $hasilNormalisasi = $fuzzyNormalisasiValue / $maxFuzzy;
 
             // Simpan hasil normalisasi tahap kedua
-            $normalisasiTahapDua[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = $hasilNormalisasi;
+            $normalisasiTahapDua[$alternatifName][$kriteriaItem->id] = $hasilNormalisasi;
 
-            // Simpan detail perhitungan
-            $detailPerhitunganTahapDua[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = 
-                "(($nilai - $batasBawah) / ($batasAtas - $batasBawah)) / $maxFuzzy = " .number_format($hasilNormalisasi, 4);
+            // Simpan detail perhitungan dengan hasil yang diformat ke 4 angka desimal
+            $detailPerhitunganTahapDua[$alternatifName][$kriteriaItem->id] = 
+                "$fuzzyNormalisasiValue / $maxFuzzy = " . number_format($hasilNormalisasi, 4);
         }
     }
 }
+
 
 
 // 𝑉3 = (0,30 ∗ 0.61) + (0,10 ∗ 0,38) + (0,15 ∗ 0.38) + (0,20 ∗ 1) + (0,10 ∗ 1) + (0,15
@@ -107,7 +115,7 @@ $normalisasiTahapTiga = [];
                 
                 // Simpan detail perhitungan
                 $detailPerhitunganTahapTiga[$namaAlternatif][$value['id']] = 
-                   "($bobot" . " * " . number_format($nilaiNormalisasi, 4) . ") = " . number_format($hasilNormalisasi, 4);
+                   "(" . number_format($bobot, 2) . " * " . number_format($nilaiNormalisasi, 4) . ") = " . number_format($hasilNormalisasi, 4);
             }
         }
     }
