@@ -53,64 +53,47 @@
         </div>
 
         <div class="card shadow mb-4">
-    <!-- Card Header - Accordion -->
-    <a href="#rank" class="d-block card-header py-3" data-toggle="collapse"
-       role="button" aria-expanded="true" aria-controls="collapseCardExample">
-        <h6 class="m-0 font-weight-bold text-primary">Tahap Perangkingan</h6>
-    </a>
 
     <!-- Card Content - Collapse -->
     <div class="collapse show" id="rank">
-        <div class="card-body">
-            <div class="table-responsive">
-                @php
-                    $totals = []; // Array untuk menyimpan total
-                @endphp
+    <div class="table-responsive">
+        @php
+            $totals = []; // Array untuk menyimpan total
+        @endphp
 
-                @foreach($normalisasiTahapTiga as $key => $value)
-                    @php 
-                        $total = array_sum($value); // Hitung total langsung
-                        $totals[$key] = $total; // Simpan total dalam array
-                    @endphp
+        @foreach($normalisasiTahapTiga as $key => $value)
+            @php 
+                $total = array_sum($value); // Hitung total langsung
+                $totals[$key] = $total; // Simpan total dalam array
+            @endphp
+        @endforeach
+
+        @php
+            // Urutkan total dari yang terbesar ke terkecil
+            arsort($totals);
+        @endphp
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center; padding-bottom: 40px">Nama</th>
+                    <th style="text-align: center; padding-bottom: 40px">Total</th>
+                    <th style="text-align: center; padding-bottom: 40px">Rank</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $rank = 1; @endphp
+                @foreach($totals as $key => $total)
+                    <tr>
+                        <td>{{ $key }}</td> {{-- Tampilkan nama --}}
+                        <td>{{ number_format($total, 4) }}</td>  {{-- Tampilkan total --}}
+                        <td>{{ $rank++ }}</td> {{-- Tampilkan ranking --}}
+                    </tr>
                 @endforeach
+            </tbody>
+        </table>
+    </div>
 
-                @php
-                    // Urutkan total dari yang terbesar ke terkecil
-                    arsort($totals);
-                @endphp
-
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Nama / Bobot</th>
-                            @foreach ($kriteria as $value)
-                                <th>{{ $value->nama_kriteria }}</th>
-                            @endforeach
-                            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Total</th>
-                            <th rowspan="2" style="text-align: center; padding-bottom: 40px">Rank</th>
-                        </tr>
-                        <tr>
-                            @foreach ($kriteria as $key => $value)
-                                <th>{{ $value->bobot }}</th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $rank = 1; @endphp
-                        @foreach($totals as $key => $total)
-                            <tr>
-                                <td>{{ $key }}</td>
-                                @foreach($normalisasiTahapTiga[$key] as $value_1)
-                                    <td>{{ $value_1 }}</td>
-                                @endforeach
-                                <td>{{ number_format($total, 4) }}</td>  {{-- Tampilkan total --}}
-                                <td>{{ $rank++ }}</td> {{-- Tampilkan ranking --}}
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 </div>
     </div>

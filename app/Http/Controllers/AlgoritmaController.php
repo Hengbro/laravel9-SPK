@@ -224,39 +224,83 @@ if ($nilai <= 60) {
         }
 
         // Proses Fuzzy 
-$fuzzyNormalisasi = [];
-foreach ($penilaian as $key_1 => $value_1) {
-    $fuzzyNormalisasi[$value_1->alternatif->nama_alternatif][$value->id] = ($value_1->nilai - 60) / (80-60);
-
-}
-
-// Proses Normalisasi
-$normalisasiTahapDua = [];
-foreach ($kriteria as $key => $value) {
-    foreach ($penilaian as $key_1 => $value_1) {
-        $maxFuzzy = max(array_map('max', $fuzzyNormalisasi));
-        $normalisasiTahapDua[$value_1->alternatif->nama_alternatif][$value->id] = ($value_1->nilai - 60) / (80-60) / $maxFuzzy;
-
-    }
-}
-
-// 𝑉3 = (0,30 ∗ 0.61) + (0,10 ∗ 0,38) + (0,15 ∗ 0.38) + (0,20 ∗ 1) + (0,10 ∗ 1) + (0,15
-// ∗ 0,67)
-
-// Proses Normalisasi tahap 3
-$normalisasiTahapTiga = [];
-$total = 0;
-foreach ($kriteria as $key => $value) {
-    foreach ($normalisasiTahapDua as $namaAlternatif => $hasil) {
-        // Mengakses nilai yang tepat dari $hasil berdasarkan $value['id']
-        if (isset($hasil[$value['id']])) {
-            $nilaiNormalisasi = $hasil[$value['id']];
-            // Hitung normalisasi tahap tiga menggunakan bobot dari $value
-            $normalisasiTahapTiga[$namaAlternatif][$value['id']] = 
-                number_format(($value['bobot'] / 100) * $nilaiNormalisasi, 4);
+        $fuzzyNormalisasi = [];
+        $detailPerhitungan = [];
+        
+        // Proses Fuzzy
+        foreach ($kriteria as $kriteriaItem) {
+            foreach ($penilaian as $penilaianItem) {
+                if ($penilaianItem->kriteria_id == $kriteriaItem->id) {
+                    $nilai = $penilaianItem->nilai;
+                    $batasBawah = 60;
+                    $batasAtas = 80;
+                    $hasil = ($nilai - $batasBawah) / ($batasAtas - $batasBawah);
+                    $fuzzyNormalisasi[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = $hasil;
+                    $detailPerhitungan[$penilaianItem->alternatif->nama_alternatif][$kriteriaItem->id] = "($nilai - $batasBawah) / ($batasAtas - $batasBawah) = $hasil";
+                }
+            }
         }
-    }
-}
+        
+        
+        
+        $normalisasiTahapDua = [];
+        $detailPerhitunganTahapDua = [];
+        
+        // Proses Normalisasi Tahap Kedua
+        foreach ($kriteria as $kriteriaItem) {
+            foreach ($penilaian as $penilaianItem) {
+                // Pastikan nilai yang diambil sesuai dengan kriteria saat ini
+                if ($penilaianItem->kriteria_id == $kriteriaItem->id) {
+                    $alternatifName = $penilaianItem->alternatif->nama_alternatif;
+        
+                    // Ambil nilai yang sesuai dengan kriteria dan alternatif
+                    $nilai = $penilaianItem->nilai; 
+                    $batasBawah = 60;
+                    $batasAtas = 80;
+                    $fuzzyNormalisasiValue = ($nilai - $batasBawah) / ($batasAtas - $batasBawah);
+                    
+                    // Cari nilai maksimum per alternatif dan kriteria di dalam $fuzzyNormalisasi
+                    $maxFuzzy = max($fuzzyNormalisasi[$alternatifName]);
+                    
+                    // Hitung hasil normalisasi dengan maxFuzzy berdasarkan alternatif tersebut
+                    $hasilNormalisasi = $fuzzyNormalisasiValue / $maxFuzzy;
+        
+                    // Simpan hasil normalisasi tahap kedua
+                    $normalisasiTahapDua[$alternatifName][$kriteriaItem->id] = $hasilNormalisasi;
+        
+                    // Simpan detail perhitungan dengan hasil yang diformat ke 4 angka desimal
+                    $detailPerhitunganTahapDua[$alternatifName][$kriteriaItem->id] = 
+                        "$fuzzyNormalisasiValue / $maxFuzzy = " . number_format($hasilNormalisasi, 4);
+                }
+            }
+        }
+        
+        
+        
+        // 𝑉3 = (0,30 ∗ 0.61) + (0,10 ∗ 0,38) + (0,15 ∗ 0.38) + (0,20 ∗ 1) + (0,10 ∗ 1) + (0,15
+        // ∗ 0,67)
+        
+        $normalisasiTahapTiga = [];
+            $detailPerhitunganTahapTiga = [];
+            $total = 0;
+        
+            foreach ($kriteria as $key => $value) {
+                foreach ($normalisasiTahapDua as $namaAlternatif => $hasil) {
+                    // Mengakses nilai yang tepat dari $hasil berdasarkan $value['id']
+                    if (isset($hasil[$value['id']])) {
+                        $nilaiNormalisasi = $hasil[$value['id']];
+                        $bobot = $value['bobot'] / 100;
+                        $hasilNormalisasi = $bobot * $nilaiNormalisasi;
+                        
+                        // Simpan hasil normalisasi tahap ketiga
+                        $normalisasiTahapTiga[$namaAlternatif][$value['id']] = number_format($hasilNormalisasi, 4);
+                        
+                        // Simpan detail perhitungan
+                        $detailPerhitunganTahapTiga[$namaAlternatif][$value['id']] = 
+                           "(" . number_format($bobot, 2) . " * " . number_format($nilaiNormalisasi, 4) . ") = " . number_format($hasilNormalisasi, 4);
+                    }
+                }
+            }
 
 
         /// Perhitungan Fuzzy Tsukamoto
