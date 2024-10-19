@@ -7,12 +7,6 @@
 @section('content')
 
 <div class="container-fluid">
-    
-        <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Selamat Datang!</h1>
-            
-        </div>
 
         <!-- Content Row -->
         <div class="row">
@@ -95,5 +89,15 @@
                 </a>
             </div>
         </div>
+
+        <!-- Page Heading -->
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Selamat Datang di Halaman Utama</h1>
+            <h2 class="h3 mb-0 text-gray-800">Sistem Pendukung Keputusan, Penilaian Kinerja Karyawan</h2>
+        </div>
+         <!-- Image Centered -->
+    <div class="text-center mb-4">
+        <img src="{{ asset('storage/karyawan.jpg') }}" alt="Karyawan" class="img-fluid" style="max-width: 600px; height: 400px;">
+    </div>
 </div>
 @endsection

@@ -314,6 +314,8 @@
                 @php
                     // Urutkan total dari yang terbesar ke terkecil
                     arsort($totals);
+                    // Ambil nama alternatif dengan 5 nilai tertinggi
+                    $topAlternatifs = array_slice($totals, 0, 5, true);
                 @endphp
 
                 <table class="table table-bordered">
@@ -335,10 +337,25 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                <!-- Kesimpulan -->
+                <div class="mt-4">
+                    <h6 class="font-weight-bold">Kesimpulan:</h6>
+                    <p>
+                        Dari tabel di atas dapat disimpulkan bahwa peluang terbesar yang akan terpilih
+                        menjadi Karyawan terbaik diperoleh oleh:
+                        @foreach($topAlternatifs as $alt => $value)
+                            {{ $alt }} dengan nilai {{ number_format($value, 4) }}{{ $loop->last ? '.' : ',' }}
+                        @endforeach 
+                        Untuk lebih jelasnya, dapat dilihat pada tabel di atas.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 
