@@ -79,16 +79,12 @@ foreach ($kriteria as $kriteriaItem) {
             
             // Cari nilai maksimum per alternatif dan kriteria di dalam $fuzzyNormalisasi
             $maxFuzzy = max($fuzzyNormalisasi[$alternatifName]);
-            
-            // Hitung hasil normalisasi dengan maxFuzzy berdasarkan alternatif tersebut
-            $hasilNormalisasi = $fuzzyNormalisasiValue / $maxFuzzy;
+            $hasilNormalisasi = bcdiv((string) $fuzzyNormalisasiValue, (string) $maxFuzzy, 16);
 
-            // Simpan hasil normalisasi tahap kedua
-            $normalisasiTahapDua[$alternatifName][$kriteriaItem->id] = $hasilNormalisasi;
-
-            // Simpan detail perhitungan dengan hasil yang diformat ke 4 angka desimal
+            // $hasilNormalisasi = bcmul((string) $fuzzyNormalisasiValue / (string) $maxFuzzy, 16);
+            $normalisasiTahapDua[$alternatifName][$kriteriaItem->id] = number_format($hasilNormalisasi,2) ;
             $detailPerhitunganTahapDua[$alternatifName][$kriteriaItem->id] = 
-                "$fuzzyNormalisasiValue / $maxFuzzy = " . number_format($hasilNormalisasi, 4);
+                "$fuzzyNormalisasiValue / $maxFuzzy = " . $hasilNormalisasi;
         }
     }
 }
@@ -98,27 +94,31 @@ foreach ($kriteria as $kriteriaItem) {
 // 𝑉3 = (0,30 ∗ 0.61) + (0,10 ∗ 0,38) + (0,15 ∗ 0.38) + (0,20 ∗ 1) + (0,10 ∗ 1) + (0,15
 // ∗ 0,67)
 
-$normalisasiTahapTiga = [];
+    $normalisasiTahapTiga = [];
     $detailPerhitunganTahapTiga = [];
     $total = 0;
 
-    foreach ($kriteria as $key => $value) {
-        foreach ($normalisasiTahapDua as $namaAlternatif => $hasil) {
-            // Mengakses nilai yang tepat dari $hasil berdasarkan $value['id']
-            if (isset($hasil[$value['id']])) {
-                $nilaiNormalisasi = $hasil[$value['id']];
-                $bobot = $value['bobot'] / 100;
-                $hasilNormalisasi = $bobot * $nilaiNormalisasi;
-                
-                // Simpan hasil normalisasi tahap ketiga
-                $normalisasiTahapTiga[$namaAlternatif][$value['id']] = number_format($hasilNormalisasi, 4);
-                
-                // Simpan detail perhitungan
-                $detailPerhitunganTahapTiga[$namaAlternatif][$value['id']] = 
-                   "(" . number_format($bobot, 2) . " * " . number_format($nilaiNormalisasi, 4) . ") = " . number_format($hasilNormalisasi, 4);
-            }
+
+foreach ($kriteria as $key => $value) {
+    foreach ($normalisasiTahapDua as $namaAlternatif => $hasil) {
+        // Mengakses nilai yang tepat dari $hasil berdasarkan $value['id']
+        if (isset($hasil[$value['id']])) {
+            $nilaiNormalisasi = $hasil[$value['id']];
+            $bobot = $value['bobot'] / 100;
+
+            // Menggunakan bcmul untuk hasil perhitungan dengan presisi tinggi
+            $hasilNormalisasi = bcmul((string) $bobot, (string) $nilaiNormalisasi, 16);
+
+            // Simpan hasil normalisasi tahap ketiga
+            $normalisasiTahapTiga[$namaAlternatif][$value['id']] = $hasilNormalisasi;
+
+            // Simpan detail perhitungan
+            $detailPerhitunganTahapTiga[$namaAlternatif][$value['id']] = 
+                "(" . number_format($bobot,2) . " * " . number_format($nilaiNormalisasi, 2). ") = " . number_format($hasilNormalisasi, 4);
         }
     }
+}
+
 
 
 // Perhitungan Fuzzy Tsukamoto dengan Detail

@@ -33,20 +33,22 @@
 </head>
 <body>
     <div>
-        <table>
-            <tr>
-                <td style="padding-right: 240px; padding-left: 20px">
-                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/logoptboss.png'))) }}" width="90" height="90" alt="Logo">
-                <td>
-                    <center>
-                    <font size="4">PMKS PT BOSS</font><br>
-                        <font size="4">telp: 0895678945</font><br>
-                        <font size="2">Alamat PT. BOSS</font><br>
-                        <font size="2">Kode Pos: 22865</font><br>
-                    </center>
-                </td>
-            </tr>
-        </table>          
+    <table style="width: 90%;">
+    <tr>
+        <td style="width: 90px; padding-right: 20px; vertical-align: middle;">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/logoptboss.png'))) }}" 
+                 width="90" height="90" alt="Logo">
+        </td>
+        <td style="vertical-align: middle; text-align: center;">
+            <div>
+                <font size="4">PMKS PT BOSS</font><br>
+                <font size="4">Telp: 0895678945</font><br>
+                <font size="2">Alamat PT. BOSS</font><br>
+                <font size="2">Kode Pos: 22865</font><br>
+            </div>
+        </td>
+    </tr>
+</table>          
 
       <hr class="garis1"/>
       <div style="margin-top: 25px; margin-bottom: 25px;">
@@ -72,7 +74,7 @@
                         @foreach ($crips as $row)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $row->nama_crips }}</td>
+                                <!-- <td>{{ $row->nama_crips }}</td> -->
                                 <td>{{ $row->bobot }}</td>
                     
                             </tr>
