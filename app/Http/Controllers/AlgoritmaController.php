@@ -84,7 +84,7 @@ foreach ($kriteria as $kriteriaItem) {
             // $hasilNormalisasi = bcmul((string) $fuzzyNormalisasiValue / (string) $maxFuzzy, 16);
             $normalisasiTahapDua[$alternatifName][$kriteriaItem->id] = number_format($hasilNormalisasi,2) ;
             $detailPerhitunganTahapDua[$alternatifName][$kriteriaItem->id] = 
-                "$fuzzyNormalisasiValue / $maxFuzzy = " . $hasilNormalisasi;
+                "$fuzzyNormalisasiValue / $maxFuzzy = " . number_format($hasilNormalisasi, 4);
         }
     }
 }
