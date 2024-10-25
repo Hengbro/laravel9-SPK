@@ -63,6 +63,10 @@
                             <th>No</th>
                             <th>Nama Karyawan</th>
                             <th>NIK</th>
+                            <th>Umur</th>
+                            <th>Jabatan</th>
+                            <th>Agama</th>
+                            <th>Jenis Kelamin</th>
                             <th>Alamat</th>
                             <th>Telepon</th>
                         </tr>
@@ -74,6 +78,10 @@
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $row->nama_alternatif }}</td>
                                 <td>{{ $row->nik }}</td>
+                                <td>{{ $row->umur }}</td>
+                                <td>{{ $row->jabatan }}</td>
+                                <td>{{ $row->agama}}</td>
+                                <td>{{ $row->jk }}</td>
                                 <td>{{ $row->alamat }}</td>
                                 <td>{{ $row->telepon }}</td>
                             </tr>

@@ -49,8 +49,6 @@
     </tr>
 </table>
 
-
-
         <hr class="garis1" />
 
         <div style="margin-top: 25px; margin-bottom: 25px;">
@@ -63,13 +61,13 @@
     <div class="collapse show" id="rank">
     <div class="table-responsive">
         @php
-            $totals = []; // Array untuk menyimpan total
+            $totals = [];
         @endphp
 
         @foreach($normalisasiTahapTiga as $key => $value)
             @php 
-                $total = array_sum($value); // Hitung total langsung
-                $totals[$key] = $total; // Simpan total dalam array
+                $total = array_sum($value);
+                $totals[$key] = $total; 
             @endphp
         @endforeach
 

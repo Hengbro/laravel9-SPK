@@ -88,6 +88,39 @@
             </div>
         </div>
 
+        <!-- Tampilan Detail Perhitungan dan Normalisasi -->
+        <div class="card shadow mb-4">
+            <a href="#hasilNormalisasi" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Detail Normalisasi Tahap 1</h6>
+            </a>
+            <div class="collapse show" id="hasilNormalisasi">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Alternatif / Kriteria</th>
+                                    @foreach ($kriteria as $key => $value)
+                                        <th>{{ $value->nama_kriteria }}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($detailPerhitungan as $nama_alternatif => $nilai_kriteria)
+                                <tr>
+                                <td>{{ $nama_alternatif }}</td>
+                                @foreach($nilai_kriteria as $id_kriteria => $nilai)
+                                    <td>{{ $nilai }}</td>
+                                @endforeach
+                            </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Tampilan Hasil Perhitungan dan Normalisasi -->
         <div class="card shadow mb-4">
             <a href="#hasilNormalisasi" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
