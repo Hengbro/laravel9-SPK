@@ -40,10 +40,10 @@
         </td>
         <td style="vertical-align: middle; text-align: center;">
             <div>
-                <font size="4">PMKS PT BOSS</font><br>
-                <font size="4">Telp: 0895678945</font><br>
-                <font size="2">Alamat PT. BOSS</font><br>
-                <font size="2">Kode Pos: 22865</font><br>
+                <font size="4">Laporan Hasil Penilaian Karyawan</font><br>
+                <font size="4">PMKS PT. BOSS</font><br>
+                <font size="2">Telp: 0895678945 - Alamat PT. BOSS - Kode Pos: 22865</font><br>
+                <font size="2">Sejak {{ $selectedPeriode}} </font><br>
             </div>
         </td>
     </tr>
@@ -98,9 +98,12 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+</div>
+    </div>
 
-        <!-- Kesimpulan -->
-        <div class="mt-4">
+    <!-- Kesimpulan -->
+    <div class="mt-4">
                     <h6 class="font-weight-bold">Kesimpulan:</h6>
                     <p>
                         Dari tabel di atas dapat disimpulkan bahwa peluang terbesar yang akan terpilih
@@ -111,10 +114,6 @@
                         Untuk lebih jelasnya, dapat dilihat pada tabel di atas.
                     </p>
                 </div>
-    </div>
-
-    </div>
-</div>
     </div>
 </body>
 </html>

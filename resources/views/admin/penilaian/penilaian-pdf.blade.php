@@ -41,10 +41,9 @@
         </td>
         <td style="vertical-align: middle; text-align: center;">
             <div>
-                <font size="4">PMKS PT BOSS</font><br>
-                <font size="4">Telp: 0895678945</font><br>
-                <font size="2">Alamat PT. BOSS</font><br>
-                <font size="2">Kode Pos: 22865</font><br>
+                <font size="4">Laporan Nilai Karyawan</font><br>
+                <font size="4">PMKS PT. BOSS</font><br>
+                <font size="2">Telp: 0895678945 - Alamat PT. BOSS - Kode Pos: 22865</font><br>
             </div>
         </td>
     </tr>
@@ -56,10 +55,12 @@
       </div>
 
       <div class="collapse show" id="listkriteria">
-        <div class="card-body">
-            <div class="table-responsive">
-               
+    <div class="card-body">
+        <div class="table-responsive">
+
+            @foreach ($periode as $p)
                 <br><br>
+                <h5>Periode: {{ $p->periode }}</h5>
                 <table class="table table-striped table-hover" id="DataTable">
                     <thead>
                         <tr>
@@ -71,36 +72,44 @@
                     </thead>
                     <tbody>
                         @forelse ($alternatif as $alt => $valt)
-                            <tr>
-                                <td>{{ $valt->nama_alternatif }}</td>
-                                @if (count($valt->penilaian) > 0)
-                                @foreach($valt->penilaian as $key => $value)
-                                <td> 
-                                    {{ $value->nilai }}
-                                </td>
-                                @endforeach
+                            @php
+                                // Filter penilaian untuk alternatif ini pada periode tertentu
+                                $penilaianAlternatif = $valt->penilaian->filter(function($pen) use ($p) {
+                                    return $pen->periode == $p->periode;
+                                });
+                            @endphp
 
+                            @if ($penilaianAlternatif->isNotEmpty())
+                                <tr>
+                                    <td>{{ $valt->nama_alternatif }}</td>
+                                    @foreach($penilaianAlternatif as $pen)
+                                        <td>{{ $pen->nilai }}</td>
+                                    @endforeach
+                                </tr>
                             @endif
-                            </tr>
                         @empty
                             <tr>
                                 <td>Tidak ada data!</td>
                             </tr>
-                        
-
                         @endforelse
                     </tbody>
                 </table>
-            </div>
+            @endforeach
+
         </div>
     </div>
+</div>
+
+
+
+
 
     <div id="ttd" class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
           <p id="camat">Medan, {{ $tanggal }}</p>
-          <p id="camat"><strong>KETUA KELOMPOK</strong></p>
-          <div id="nama-camat"><strong><u>DEVI PURBA</u></strong><br />NPM. 200840045</div>
+          <p id="camat"><strong>KTU MILL</strong></p>
+          <div id="nama-camat"><strong><u>GIGIH WIBOWO</u></strong></div>
       </div>
         </div>
 </div>

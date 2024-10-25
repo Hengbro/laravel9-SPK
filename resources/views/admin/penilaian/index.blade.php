@@ -33,6 +33,28 @@
                     <div class="float-right">
                         <button class="btn btn-sm btn-primary">Simpan</button>
                     </div>
+                    <div class="form-group">
+                        <label for="bulan">Bulan Periode:</label>
+                        <select class="form-control" id="bulan" name="bulan" required style="width: 500px;"> <!-- Atur lebar menggunakan style -->
+                            <option value="" disabled selected>Pilih bulan</option>
+                            <option value="Januari">Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tahun">Tahun Periode:</label>
+                        <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Masukkan tahun" required style="width: 500px;"> <!-- Atur lebar menggunakan style -->
+                    </div>
                     <br><br>
                     <table class="table">
                         <thead>

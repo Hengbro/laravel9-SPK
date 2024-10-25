@@ -41,10 +41,9 @@
         </td>
         <td style="vertical-align: middle; text-align: center;">
             <div>
-                <font size="4">PMKS PT BOSS</font><br>
-                <font size="4">Telp: 0895678945</font><br>
-                <font size="2">Alamat PT. BOSS</font><br>
-                <font size="2">Kode Pos: 22865</font><br>
+                <font size="4">Laporan Kriteria Penelian Karyawan</font><br>
+                <font size="4">PMKS PT. BOSS</font><br>
+                <font size="2">Telp: 0895678945 - Alamat PT. BOSS - Kode Pos: 22865</font><br>
             </div>
         </td>
     </tr>
@@ -88,8 +87,8 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
           <p id="camat">Medan, {{ $tanggal }}</p>
-          <p id="camat"><strong>KETUA KELOMPOK</strong></p>
-          <div id="nama-camat"><strong><u>DEVI PURBA</u></strong><br />NPM. 200840045</div>
+          <p id="camat"><strong>KTU MILL</strong></p>
+          <div id="nama-camat"><strong><u>GIGIH WIBOWO</u></strong></div>
       </div>
         </div>
 </div>

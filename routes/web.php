@@ -23,8 +23,11 @@ Route::resource('alternatif', 'App\Http\Controllers\AlternatifController')->exce
 Route::resource('crips', 'App\Http\Controllers\CripsController')->except(['index','create','show']);
 // Route::get('/penilaian', [App\Http\Controllers\PenilaianController::class, 'index'])->name('penilaian.index');
 Route::resource('/penilaian', 'App\Http\Controllers\PenilaianController');
+Route::resource('/periode', 'App\Http\Controllers\PeriodeController');
 Route::resource('user', 'App\Http\Controllers\UserController')->except(['create']);
-Route::get('/perhitungan', [App\Http\Controllers\AlgoritmaController::class, 'index'])->name('perhitungan.index');
+Route::resource('/perhitungan', 'App\Http\Controllers\AlgoritmaController');
+Route::get('/perhitunganindex', [App\Http\Controllers\AlgoritmaController::class, 'index'])->name('perhitungan.index');
+Route::get('/perhitungan', [App\Http\Controllers\AlgoritmaController::class, 'filter'])->name('perhitungan.filter');
 Route::get('download-perhitungan-pdf', [App\Http\Controllers\AlgoritmaController::class, 'downloadPDF']);
 Route::get('download-alternatif-pdf', [App\Http\Controllers\AlternatifController::class, 'downloadPDF']);
 Route::get('download-user-pdf', [App\Http\Controllers\UserController::class, 'downloadPDF']);
