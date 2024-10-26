@@ -44,7 +44,7 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="nama">NIK</label>
                             <input type="number" class="form-control @error ('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}">
 
@@ -54,9 +54,9 @@
                                 </div>
                             @enderror
 
-                        </div>
+                        </div> -->
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
     <label for="nama">Agama</label>
     <select class="form-control @error('agama') is-invalid @enderror" name="agama">
         <option value="">Pilih Agama</option>
@@ -73,7 +73,7 @@
             {{ $message }}
         </div>
     @enderror
-</div>
+</div> -->
 
 
                         <div class="form-group">
@@ -165,8 +165,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Karyawan</th>
-                                    <th>NIK</th>
-                                    <th>Agama</th>
+                                    <!-- <th>NIK</th> -->
+                                    <!-- <th>Agama</th> -->
                                     <th>Umur</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Jabatan</th>
@@ -182,8 +182,8 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $row->nama_alternatif }}</td>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->agama }}</td>
+                                        <!-- <td>{{ $row->nik }}</td> -->
+                                        <!-- <td>{{ $row->agama }}</td> -->
                                         <td>{{ $row->umur }}</td>
                                         <td>{{ $row->jk }}</td>
                                         <td>{{ $row->jabatan }}</td>

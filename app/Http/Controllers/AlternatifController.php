@@ -26,8 +26,8 @@ class AlternatifController extends Controller
         $this->validate($request, [
 
             'nama_alternatif' => 'required|string',
-            'nik' => 'required|string',
-            'agama' => 'required|string',
+            // 'nik' => 'required|string',
+            // 'agama' => 'required|string',
             'umur' => 'required|string',
             'jk' => 'required|string',
             'jabatan' => 'required|string',

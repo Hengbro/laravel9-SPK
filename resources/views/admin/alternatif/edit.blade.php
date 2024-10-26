@@ -36,7 +36,7 @@
                             @enderror
 
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="nama">NIK</label>
                             <input type="number" class="form-control @error ('nik') is-invalid @enderror" name="nik" value="{{ $alternatif->nik }}">
 
@@ -46,9 +46,9 @@
                                 </div>
                             @enderror
 
-                        </div>
+                        </div> -->
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
     <label for="agama">Agama</label>
     <select class="form-control @error('agama') is-invalid @enderror" name="agama">
         <option value="">-- Pilih Agama --</option>
@@ -65,7 +65,7 @@
             {{ $message }}
         </div>
     @enderror
-</div>
+</div> -->
 
 
                         <div class="form-group">

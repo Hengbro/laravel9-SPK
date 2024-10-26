@@ -69,7 +69,7 @@ public function downloadPDF() {
     $tanggal = Carbon::now()->formatLocalized('%A, %d %B %Y');
     $periode = Penilaian::select('periode')->distinct()->get();
     $alternatif = Alternatif::with('penilaian.crips')->get();
-    $kriteria = Kriteria::with('crips')->orderBy('nama_kriteria','ASC')->get();
+    $kriteria = Kriteria::with('crips')->get();
     
     // Mengelompokkan data penilaian berdasarkan periode
     $penilaian = Penilaian::with('crips', 'alternatif')->get()->groupBy('periode');
